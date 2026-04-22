@@ -10,7 +10,7 @@ const headingBottom = document.getElementById('heading-bottom');
 
 function updateHeading() {
     const year = new Date(countDownDate).getFullYear();
-    headingBottom.textContent = `UNTIL ${year}!`;
+    headingBottom.textContent = `UNTIL NEW YEAR ${year}!`;
 }
 
 updateHeading();
