@@ -1,21 +1,42 @@
-function getNextNewYear() {
-    const now = new Date();
-    return new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0).getTime();
-}
-
-let countDownDate = getNextNewYear();
 const timeEl = document.querySelector('.time');
 const headingTop = document.getElementById('heading-top');
 const headingBottom = document.getElementById('heading-bottom');
 
-function updateHeading() {
-    const year = new Date(countDownDate).getFullYear();
-    headingBottom.textContent = `UNTIL NEW YEAR ${year}!`;
+function getNextChristmas() {
+    const now = new Date();
+    const xmas = new Date(now.getFullYear(), 11, 25, 0, 0, 0);
+    if (now >= xmas) xmas.setFullYear(xmas.getFullYear() + 1);
+    return xmas.getTime();
 }
 
-updateHeading();
+function getNextNewYear() {
+    const now = new Date();
+    const ny = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+    return ny.getTime();
+}
+
+function isChristmasMode() {
+    // Christmas countdown if next Christmas comes before next New Year
+    return getNextChristmas() < getNextNewYear();
+}
+
+let countDownDate;
 
 function startCountdown() {
+    const xmasMode = isChristmasMode();
+
+    if (xmasMode) {
+        countDownDate = getNextChristmas();
+        headingTop.textContent = 'ONLY';
+        headingBottom.textContent = 'UNTIL CHRISTMAS! ';
+    } else {
+        countDownDate = getNextNewYear();
+        headingTop.textContent = 'ONLY';
+        const year = new Date(countDownDate).getFullYear();
+        headingBottom.textContent = `UNTIL NEW YEAR ${year}!`;
+    }
+    timeEl.style.display = '';
+
     const x = setInterval(function () {
         const now = new Date().getTime();
         const distance = countDownDate - now;
@@ -25,24 +46,24 @@ function startCountdown() {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById("days").innerHTML = days;
-        document.getElementById("hours").innerHTML = hours;
-        document.getElementById("minutes").innerHTML = minutes;
-        document.getElementById("seconds").innerHTML = seconds;
+        document.getElementById('days').innerHTML = days;
+        document.getElementById('hours').innerHTML = hours;
+        document.getElementById('minutes').innerHTML = minutes;
+        document.getElementById('seconds').innerHTML = seconds;
 
         if (distance <= 0) {
             clearInterval(x);
             timeEl.style.display = 'none';
-            headingTop.textContent = '🎉 Happy';
-            headingBottom.textContent = 'New Year! 🎉';
 
-            setTimeout(function () {
-                countDownDate = getNextNewYear();
-                headingTop.textContent = 'ONLY';
-                updateHeading();
-                timeEl.style.display = '';
-                startCountdown();
-            }, 5000);
+            if (xmasMode) {
+                headingTop.textContent = '🎄 Merry';
+                headingBottom.textContent = 'Christmas! 🎄';
+            } else {
+                headingTop.textContent = '🎉 Happy';
+                headingBottom.textContent = 'New Year! 🎉';
+            }
+
+            setTimeout(function () { startCountdown(); }, 5 * 60 * 1000);
         }
     }, 1000);
 }
