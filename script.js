@@ -8,6 +8,13 @@ const timeEl = document.querySelector('.time');
 const headingTop = document.getElementById('heading-top');
 const headingBottom = document.getElementById('heading-bottom');
 
+function updateHeading() {
+    const year = new Date(countDownDate).getFullYear();
+    headingBottom.textContent = `UNTIL ${year}!`;
+}
+
+updateHeading();
+
 function startCountdown() {
     const x = setInterval(function () {
         const now = new Date().getTime();
@@ -32,7 +39,7 @@ function startCountdown() {
             setTimeout(function () {
                 countDownDate = getNextNewYear();
                 headingTop.textContent = 'ONLY';
-                headingBottom.textContent = 'UNTIL NEW YEAR';
+                updateHeading();
                 timeEl.style.display = '';
                 startCountdown();
             }, 5000);
