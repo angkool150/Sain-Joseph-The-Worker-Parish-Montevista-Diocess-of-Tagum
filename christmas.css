@@ -1,0 +1,344 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-image: url("Parokya PNG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.247);
+}
+
+.countdown {
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 900px;
+  color: white;
+
+}
+
+.countdown h1 {
+  font-size: 80px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+}
+
+
+
+.time {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.text-time-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  background-color: rgba(255, 255, 255, 0.144);
+  border: 2px solid white;
+  border-radius:  10px ;
+  backdrop-filter: blur(5px);
+  /* glow variables: size (px) and alpha (0-1) */
+  --glow-size: 10px;
+  --glow-alpha: 0.6;
+  
+  box-shadow: 0 0 var(--glow-size) rgba(255, 255, 255, var(--glow-alpha));
+  transition: box-shadow 480ms ease, transform 360ms ease;
+
+}
+
+
+
+
+
+.text-time-box h1 {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+
+.time-box {
+  padding: 20px;
+  font-size: 60px;
+  width: 150px;
+  text-align: center;
+}
+
+.image-logo {
+  position: fixed;
+  /* Fixes the position relative to the viewport */
+  top: 0;
+  /* Aligns the div to the top */
+  left: 0;
+  /* Aligns the div to the left side */
+  width: 100%;
+  /* Ensures the div spans the full width */
+  z-index: 1000;
+  /* Keeps the div on top of other content */
+  padding: 10px;
+  /* Optional padding */
+  display: flex;
+  justify-content: center;
+  /* Centers the image horizontally */
+}
+
+.image-logo img {
+  margin-left: 5px;
+  max-width: 100%;
+  /* Ensures the image does not overflow */
+  height: 120px;
+  /* Keeps the image’s aspect ratio */
+}
+
+@media (max-width: 800px) {
+  .countdown h1 {
+    font-size: 50px;
+  }
+
+  .time {
+    font-size: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .text-time-box {
+    width: 130px;
+  }
+
+  .text-time-box h1 {
+    font-size: 20px;
+  }
+
+  .time-box {
+    font-size: 40px;
+    width: 100px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 650px) {
+
+
+  .time {
+    font-size: 20px;
+  }
+
+  .text-time-box {
+    width: 100px;
+  }
+
+  .text-time-box h1 {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .time-box {
+    font-size: 30px;
+    width: 80px;
+    padding: 10px;
+  }
+
+  .text-time-box {
+    width: 90px;
+  }
+}
+
+@media (max-width: 508px) {
+  .countdown h1 {
+    font-size: 40px;
+  }
+
+  .time {
+    font-size: 20px;
+  }
+
+  .text-time-box h1 {
+    font-size: 15px;
+  }
+
+  .time-box {
+    font-size: 20px;
+    width: 60px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 479px) {
+  .countdown h1 {
+    font-size: 30px;
+  }
+
+  .time {
+    font-size: 25px;
+  }
+
+  .text-time-box h1 {
+    font-size: 10px;
+  }
+
+  .text-time-box {
+    width: 60px;
+  }
+
+  .time-box {
+    font-size: 25px;
+    width: 60px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .countdown h1 {
+    font-size: 30px;
+  }
+
+
+
+
+  .text-time-box h1 {
+    font-size: 8px;
+  }
+
+  .text-time-box {
+    width: 50px;
+    height: 70px;
+  }
+
+  .time-box {
+    font-size: 15px;
+    width: 60px;
+    padding: 8px;
+  }
+}
+
+/* Footer styles */
+.site-footer {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.6));
+  color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  padding: 12px 18px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.site-footer .footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo {
+  height: 48px;
+  width: auto;
+  border-radius: 6px;
+}
+
+.footer-text {
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+.footer-link {
+  color: #ffd700;
+  text-decoration: none;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .site-footer .footer-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .footer-right {
+    text-align: center;
+  }
+}
+
+/* Social icon layout inside footer */
+.footer-social {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.footer-social .footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: transparent;
+  border-radius: 6px;
+}
+
+.footer-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.footer-link-label {
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width:700px) {
+  .footer-social {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width:435px) {
+  .footer-text {
+    font-size: 10px;
+  }
+  .footer-link {
+    font-size: 10px;
+  }
+}
