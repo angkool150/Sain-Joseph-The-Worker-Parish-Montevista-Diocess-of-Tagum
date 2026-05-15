@@ -16,8 +16,11 @@ function getNextNewYear() {
 }
 
 function isChristmasMode() {
-    // Christmas countdown if next Christmas comes before next New Year
     return getNextChristmas() < getNextNewYear();
+}
+
+function formatTimeUnit(value) {
+    return String(value).padStart(2, '0');
 }
 
 let countDownDate;
@@ -28,73 +31,76 @@ function startCountdown() {
     if (xmasMode) {
         countDownDate = getNextChristmas();
         headingTop.textContent = 'ONLY';
-        headingBottom.textContent = 'UNTIL CHRISTMAS! ';
+        headingBottom.textContent = 'UNTIL CHRISTMAS!';
     } else {
         countDownDate = getNextNewYear();
         headingTop.textContent = 'ONLY';
         const year = new Date(countDownDate).getFullYear();
         headingBottom.textContent = `UNTIL NEW YEAR ${year}!`;
     }
-    timeEl.style.display = '';
 
-    const x = setInterval(function () {
+    timeEl.style.display = '';
+    let timer;
+
+    function updateCountdown() {
         const now = new Date().getTime();
-        const distance = countDownDate - now;
+        const distance = Math.max(countDownDate - now, 0);
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById('days').innerHTML = days;
-        document.getElementById('hours').innerHTML = hours;
-        document.getElementById('minutes').innerHTML = minutes;
-        document.getElementById('seconds').innerHTML = seconds;
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = formatTimeUnit(hours);
+        document.getElementById('minutes').textContent = formatTimeUnit(minutes);
+        document.getElementById('seconds').textContent = formatTimeUnit(seconds);
 
         if (distance <= 0) {
-            clearInterval(x);
+            if (timer) clearInterval(timer);
             timeEl.style.display = 'none';
 
             if (xmasMode) {
-                headingTop.textContent = '🎄 Merry';
-                headingBottom.textContent = 'Christmas! 🎄';
+                headingTop.textContent = 'Merry';
+                headingBottom.textContent = 'Christmas!';
             } else {
-                headingTop.textContent = '🎉 Happy';
-                headingBottom.textContent = 'New Year! 🎉';
+                headingTop.textContent = 'Happy';
+                headingBottom.textContent = 'New Year!';
             }
 
             setTimeout(function () { startCountdown(); }, 5 * 60 * 1000);
+            return false;
         }
-    }, 1000);
+
+        return true;
+    }
+
+    if (updateCountdown()) {
+        timer = setInterval(updateCountdown, 1000);
+    }
 }
 
 startCountdown();
 
-// --- Random white glow for .text-time-box (christmas lights effect) ---
 (function () {
     const boxes = document.querySelectorAll('.text-time-box');
     if (!boxes || boxes.length === 0) return;
 
     function rand(min, max) { return Math.random() * (max - min) + min; }
 
-    // apply a random glow to a single box
     function flicker(box) {
-        const size = Math.round(rand(10, 45)) + 'px'; // blur radius
-        const alpha = (rand(0.25, 0.95)).toFixed(2); // opacity of white
+        const size = Math.round(rand(12, 42)) + 'px';
+        const alpha = (rand(0.25, 0.76)).toFixed(2);
         box.style.setProperty('--glow-size', size);
         box.style.setProperty('--glow-alpha', alpha);
-        // subtle scale bounce for extra life
-        box.style.transform = `scale(${(rand(0.985, 1.02)).toFixed(3)})`;
+        box.style.transform = `scale(${(rand(0.992, 1.012)).toFixed(3)})`;
     }
 
-    // staggered flicker loop
     setInterval(() => {
-        boxes.forEach((box, i) => {
-            // each box flickers with a slight random delay
+        boxes.forEach((box) => {
             setTimeout(() => flicker(box), Math.random() * 700);
         });
-    }, 850);
+    }, 950);
 
-    // initial seed
-    boxes.forEach(b => flicker(b));
+    boxes.forEach((box) => flicker(box));
 })();
